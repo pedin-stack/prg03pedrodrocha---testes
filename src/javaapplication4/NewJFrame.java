@@ -33,8 +33,8 @@ public class NewJFrame extends javax.swing.JFrame {
         spnanoNascimento = new javax.swing.JSpinner();
         lblPergunta = new javax.swing.JLabel();
         lblIdade = new javax.swing.JLabel();
-        txtIdade = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        lblimageIdade = new javax.swing.JLabel();
+        lblidadeResultado = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,15 +53,10 @@ public class NewJFrame extends javax.swing.JFrame {
         lblIdade.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblIdade.setText("Idade:");
 
-        txtIdade.setText("0");
-        txtIdade.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdadeActionPerformed(evt);
-            }
-        });
+        lblimageIdade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/javaapplication4/idade.icon-removebg-preview.png"))); // NOI18N
+        lblimageIdade.setText("jLabel1");
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/javaapplication4/idade.icon-removebg-preview.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
+        lblidadeResultado.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -71,19 +66,17 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblPergunta)
-                    .addComponent(btncalcularIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btncalcularIdade)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblimageIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(101, 101, 101)
-                        .addComponent(spnanoNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(95, 95, 95)
                         .addComponent(lblIdade)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(19, 19, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblidadeResultado))
+                    .addComponent(spnanoNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -93,20 +86,15 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPergunta)
                     .addComponent(spnanoNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblIdade)
-                            .addComponent(txtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(btncalcularIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblIdade)
+                        .addComponent(lblidadeResultado))
+                    .addComponent(btncalcularIdade)
+                    .addComponent(lblimageIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        txtIdade.getAccessibleContext().setAccessibleParent(null);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -116,16 +104,33 @@ public class NewJFrame extends javax.swing.JFrame {
         int anoAtual = Year.now().getValue();//receber o ano que esta na  maquina
         int anoNascimento = (int) spnanoNascimento.getValue();
         int idade = anoAtual - anoNascimento;
-         
+            
         String idadeString = Integer.toString(idade);
         
-        txtIdade.setText(idadeString);
+        if(anoNascimento > anoAtual ){
+            
+            lblidadeResultado.setText("ANO INVÁLIDO!");
+            //apos 2 seg depois da  mensagem aparecer  no label ele será limpo | para interface usar essa sintaxe em específico
+            new javax.swing.Timer(2000, e -> {//definie  açao em miliseg
+            ((javax.swing.Timer)e.getSource()).stop();//chama o timer e  encerra-o
+        }).start();//iniciar o timer
+            
+        } 
+        else if(anoNascimento < anoAtual - 122){//baseado em Jeanne Calmet, a pessoa que comprovadamente mais viveu na história
+            
+        lblidadeResultado.setText("ANO INVÁLIDO!(MUITO ANTIGO!!)");
+            
+            new javax.swing.Timer(2000, e -> {//apos 2 seg depois da  mensagem aparecer  no label ele será limpo
+            lblidadeResultado.setText("");
+            ((javax.swing.Timer)e.getSource()).stop();
+        }).start();
         
+        }else{
+            
+        lblidadeResultado.setText(idadeString);
+        
+        }
     }//GEN-LAST:event_btncalcularIdadeActionPerformed
-
-    private void txtIdadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdadeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdadeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -164,10 +169,10 @@ public class NewJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btncalcularIdade;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblIdade;
     private javax.swing.JLabel lblPergunta;
+    private javax.swing.JLabel lblidadeResultado;
+    private javax.swing.JLabel lblimageIdade;
     private javax.swing.JSpinner spnanoNascimento;
-    private javax.swing.JTextField txtIdade;
     // End of variables declaration//GEN-END:variables
 }
