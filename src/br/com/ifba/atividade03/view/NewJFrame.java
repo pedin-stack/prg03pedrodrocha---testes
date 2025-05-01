@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package javaapplication4;
+package br.com.ifba.atividade03.view;
 
 /**
  *
@@ -112,6 +112,7 @@ public class NewJFrame extends javax.swing.JFrame {
             lblidadeResultado.setText("ANO INVÁLIDO!");
             //apos 2 seg depois da  mensagem aparecer  no label ele será limpo | para interface usar essa sintaxe em específico
             new javax.swing.Timer(2000, e -> {//definie  açao em miliseg
+                lblidadeResultado.setText("");//reseta o campo de texto
             ((javax.swing.Timer)e.getSource()).stop();//chama o timer e  encerra-o
         }).start();//iniciar o timer
             
