@@ -53,7 +53,7 @@ public class NewJFrame extends javax.swing.JFrame {
         lblIdade.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblIdade.setText("Idade:");
 
-        lblimageIdade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/javaapplication4/idade.icon-removebg-preview.png"))); // NOI18N
+        lblimageIdade.setIcon(new javax.swing.ImageIcon("C:\\Users\\Casa\\Downloads\\idade.icon-removebg-preview.png")); // NOI18N
         lblimageIdade.setText("jLabel1");
 
         lblidadeResultado.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
